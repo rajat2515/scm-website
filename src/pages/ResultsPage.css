@@ -1,0 +1,68 @@
+/* ── Results Page ── */
+
+.results-section {
+  background: var(--bg-light);
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+}
+
+.results-coming-soon {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.results-cs-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 3.5rem 2.5rem;
+  text-align: center;
+  box-shadow: 0 4px 40px rgba(10, 25, 47, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.results-cs-icon {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.results-cs-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.results-cs-card p {
+  font-size: 1rem;
+  color: var(--text-body);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+/* ── Bar Chart Animation ── */
+.results-cs-loader {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px;
+  height: 50px;
+}
+
+.results-bar {
+  width: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
+  animation: barGrow 1.2s ease-in-out infinite;
+}
+
+.results-bar--1 { height: 20px; animation-delay: 0s; }
+.results-bar--2 { height: 35px; animation-delay: 0.15s; }
+.results-bar--3 { height: 45px; animation-delay: 0.3s; }
+.results-bar--4 { height: 30px; animation-delay: 0.45s; }
+.results-bar--5 { height: 25px; animation-delay: 0.6s; }
+
+@keyframes barGrow {
+  0%, 100% { transform: scaleY(0.5); opacity: 0.5; }
+  50% { transform: scaleY(1); opacity: 1; }
+}

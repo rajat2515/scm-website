@@ -1,0 +1,151 @@
+.about-section {
+  padding: 8rem 0;
+  background-color: var(--bg-light);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-left {
+  position: relative;
+}
+
+.about-image {
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: -100px;
+  width: 80%;
+  margin-left: auto;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+}
+
+.about-caption {
+  background: var(--bg-light);
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  position: relative;
+  width: 90%;
+  z-index: 2;
+}
+
+.about-caption h6 {
+  color: var(--secondary-color);
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.about-caption h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-caption p {
+  color: var(--text-body);
+  margin-bottom: 2rem;
+}
+
+.about-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.stat-box {
+  background: var(--bg-gray);
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-box h4 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.vision-box {
+  background: var(--primary-color);
+  color: #fff;
+  padding: 2.5rem;
+  border-radius: 8px;
+}
+
+.vision-box h6 {
+  color: var(--secondary-color);
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.vision-box p {
+  color: rgba(255,255,255,0.8);
+}
+
+.founder-box {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--bg-gray);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.founder-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.founder-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.founder-caption h6 {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.founder-video-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.founder-video-link:hover {
+  color: var(--primary-color);
+}
+
+@media (max-width: 992px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-image {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  .about-caption {
+    width: 100%;
+    padding: 2rem;
+  }
+}

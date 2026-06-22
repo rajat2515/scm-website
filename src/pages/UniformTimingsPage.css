@@ -1,0 +1,119 @@
+/* ── Uniform & Timings Page ── */
+
+.uniform-section {
+  background: var(--bg-light);
+}
+
+.uniform-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.uniform-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 16px rgba(10, 25, 47, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.uniform-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(10, 25, 47, 0.08);
+}
+
+.uniform-card__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.uniform-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.uniform-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.uniform-card ul li {
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  color: var(--text-body);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.uniform-card ul li::before {
+  content: '•';
+  color: var(--secondary-color);
+  font-weight: 700;
+}
+
+.uniform-card ul li:last-child {
+  border-bottom: none;
+}
+
+/* ── Timing Table ── */
+.timing-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  font-size: 0.95rem;
+}
+
+.timing-row:last-child {
+  border-bottom: none;
+}
+
+.timing-row span {
+  color: var(--text-body);
+}
+
+.timing-row strong {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+/* ── Note ── */
+.uniform-note {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(230, 57, 70, 0.06);
+  border-left: 3px solid var(--secondary-color);
+  padding: 1rem 1.5rem;
+  border-radius: 0 12px 12px 0;
+  color: var(--text-body);
+  font-size: 0.95rem;
+}
+
+.uniform-note svg {
+  flex-shrink: 0;
+  color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .uniform-grid {
+    grid-template-columns: 1fr;
+  }
+}

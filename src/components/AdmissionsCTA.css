@@ -1,0 +1,57 @@
+.admissions-cta {
+  background-color: var(--primary-color);
+  background-image: linear-gradient(135deg, #0a192f 0%, #1d3557 100%);
+  padding: 8rem 0;
+  color: #fff;
+}
+
+.admissions-content {
+  max-width: 600px;
+}
+
+.admissions-content h5 {
+  color: var(--secondary-color);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-family: var(--font-body);
+}
+
+.admissions-content h2 {
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 2.5rem;
+}
+
+.admissions-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.admissions-btns .btn {
+  padding: 1rem 2rem;
+}
+
+/* ── Fix contrast: white outline + text on dark background ── */
+.admissions-btns .btn-outline {
+  color: #fff;
+  border-color: rgba(255,255,255,0.5);
+  background: transparent;
+}
+
+.admissions-btns .btn-outline:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: #fff;
+  color: #fff;
+}
+
+.admissions-btns .btn-primary {
+  background-color: var(--secondary-color);
+  color: #fff;
+  border: none;
+}
+
+.admissions-btns .btn-primary:hover {
+  background-color: var(--secondary-color-hover);
+}

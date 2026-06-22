@@ -1,0 +1,292 @@
+/* ── Header base ── */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Start fully transparent over the hero */
+  background-color: transparent;
+  box-shadow: none;
+  transition:
+    background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow       0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Inner pages – solid white from the start ── */
+.header--inner {
+  background-color: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Scrolled state – 90% opaque white ── */
+.header--scrolled {
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Header container ── */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+/* ── Logo ── */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-img {
+  height: 55px;
+  width: auto;
+  object-fit: contain;
+  /* Drop-shadow looks good on transparent bg too */
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-main {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1.1;
+  transition: color 0.4s ease;
+}
+
+/* White text when transparent */
+.logo-main--light {
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+.logo-sub {
+  font-size: 0.72rem;
+  color: var(--text-body);
+  letter-spacing: 1px;
+  transition: color 0.4s ease;
+}
+
+.logo-sub--light {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── Nav links ── */
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.nav-links > a,
+.nav-dropdown__trigger {
+  font-weight: 500;
+  color: var(--text-dark);
+  transition: color 0.3s ease, background 0.3s ease;
+  font-size: 0.88rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.nav-links > a.nav-link--light,
+.nav-dropdown__trigger.nav-link--light {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.nav-links > a:not(.btn):hover,
+.nav-dropdown__trigger:hover {
+  color: var(--secondary-color);
+  background: rgba(230, 57, 70, 0.06);
+}
+
+.nav-cta-btn {
+  margin-left: 0.5rem;
+  font-size: 0.85rem !important;
+  padding: 0.5rem 1.2rem !important;
+}
+
+/* ── Dropdown ── */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.chevron {
+  transition: transform 0.25s ease;
+}
+
+.chevron--open {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  min-width: 220px;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 14px;
+  box-shadow: 0 12px 48px rgba(10, 25, 47, 0.12), 0 0 0 1px rgba(0,0,0,0.04);
+  padding: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.nav-dropdown__menu--open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown__item {
+  display: block;
+  padding: 0.65rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-dropdown__item:hover {
+  background: rgba(230, 57, 70, 0.06);
+  color: var(--secondary-color);
+}
+
+/* ── Mobile toggle btn ── */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  transition: opacity 0.2s;
+}
+
+.mobile-menu-btn:hover {
+  opacity: 0.75;
+}
+
+/* ── Mobile nav dropdown ── */
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  max-height: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.97);
+  transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-nav--open {
+  max-height: 80vh;
+}
+
+.mobile-nav > a {
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.mobile-nav > a:hover {
+  background-color: var(--bg-gray);
+  color: var(--secondary-color);
+}
+
+.mobile-nav .btn {
+  margin: 1rem 1.5rem;
+  text-align: center;
+}
+
+/* ── Mobile Accordion ── */
+.mobile-accordion {
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.mobile-accordion__trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.mobile-accordion__trigger:hover {
+  background: var(--bg-gray);
+}
+
+.mobile-accordion__panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--bg-gray);
+}
+
+.mobile-accordion__panel--open {
+  max-height: 300px;
+}
+
+.mobile-accordion__panel a {
+  display: block;
+  padding: 0.75rem 1.5rem 0.75rem 2.5rem;
+  font-size: 0.92rem;
+  color: var(--text-body);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.mobile-accordion__panel a:hover {
+  color: var(--secondary-color);
+  background: rgba(230, 57, 70, 0.04);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+  .nav-links {
+    display: none;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+  .mobile-nav {
+    display: flex;
+  }
+}

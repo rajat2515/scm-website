@@ -1,0 +1,118 @@
+/* ── Event Gallery Page ── */
+
+.events-section {
+  background: var(--bg-light);
+}
+
+.events-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3.5rem;
+}
+
+.events-intro-icon {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.events-intro h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  margin-bottom: 1rem;
+}
+
+.events-intro p {
+  font-size: 1.05rem;
+  color: var(--text-body);
+  line-height: 1.7;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.event-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 16px rgba(10, 25, 47, 0.04);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(10, 25, 47, 0.1);
+}
+
+.event-card__image {
+  position: relative;
+  height: 200px;
+  background: linear-gradient(135deg, rgba(10, 25, 47, 0.05) 0%, rgba(230, 57, 70, 0.05) 100%);
+}
+
+.event-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(10, 25, 47, 0.15);
+}
+
+.event-card__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--primary-color);
+  color: #ffffff;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.event-card__content {
+  padding: 1.25rem;
+}
+
+.event-card__content h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+}
+
+.event-card__date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--text-body);
+}
+
+.events-note {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: var(--bg-gray);
+  border-radius: 12px;
+}
+
+.events-note p {
+  color: var(--text-body);
+  font-size: 1rem;
+}
+
+@media (max-width: 992px) {
+  .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+}

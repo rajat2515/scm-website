@@ -13,6 +13,19 @@
     box-shadow       0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px; /* Increased thickness */
+  /* SCM Logo Tricolour: Orange, Blue, Green */
+  background: linear-gradient(to right, #F27A23 33.33%, #358AE1 33.33%, #358AE1 66.66%, #61BE3D 66.66%);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform-origin: top;
+}
+
 /* ── Inner pages – solid white from the start ── */
 .header--inner {
   background-color: rgba(255, 255, 255, 0.97);
@@ -21,12 +34,22 @@
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
 }
 
+.header--inner::before {
+  transform: scaleY(0);
+  opacity: 0;
+}
+
 /* ── Scrolled state – 90% opaque white ── */
 .header--scrolled {
   background-color: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
+}
+
+.header--scrolled::before {
+  transform: scaleY(0);
+  opacity: 0;
 }
 
 /* ── Header container ── */

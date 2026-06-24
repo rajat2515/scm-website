@@ -1,6 +1,6 @@
 .quick-portals-section {
-  padding: 0 0 4rem 0;
-  margin-top: -3rem; /* Overlap with hero image */
+  padding: 2rem 0 4rem 0;
+  margin-top: 0;
   position: relative;
   z-index: 10;
 }
@@ -21,9 +21,9 @@
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  background: #ffffff;
+  border: 1px solid rgba(10, 25, 47, 0.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
   border-radius: 16px;
 }
 

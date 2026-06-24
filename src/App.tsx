@@ -37,9 +37,9 @@ function HomePage() {
   return (
     <>
       <HeroBanner />
-      <QuickPortals />
-      <NoticeBoard />
       <AboutSection />
+      <NoticeBoard />
+      <QuickPortals />
       <AcademicsSection />
       <LearningSpaces />
       <AdmissionsCTA />

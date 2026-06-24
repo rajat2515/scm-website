@@ -13,9 +13,13 @@ const HeroBanner: React.FC = () => {
       </div>
       
       <div className="container hero-content">
-        <h1 className="hero-title">
-          Next Step to <span className="highlight">Future</span>
-        </h1>
+        <div className="hero-text-wrapper">
+          <div className="hero-accent-line"></div>
+          <h1 className="hero-title">
+            Next Step to <br />
+            <span className="highlight">Future</span>
+          </h1>
+        </div>
       </div>
     </section>
   );

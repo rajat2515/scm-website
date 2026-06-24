@@ -1,6 +1,9 @@
 .admissions-cta {
   background-color: var(--primary-color);
-  background-image: linear-gradient(135deg, #0a192f 0%, #1d3557 100%);
+  background-image: linear-gradient(to right, rgba(10, 25, 47, 0.95) 0%, rgba(10, 25, 47, 0.7) 100%), url('/school-campus.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding: 8rem 0;
   color: #fff;
 }

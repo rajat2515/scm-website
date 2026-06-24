@@ -23,6 +23,8 @@ const navItems: NavItem[] = [
       { label: 'Introduction', to: '/introduction' },
       { label: "Management's Desk", to: '/managements-desk' },
       { label: 'Facilities', to: '/facilities' },
+      { label: 'Event Gallery', to: '/events' },
+      { label: 'Mandatory Disclosure', to: '/mandatory-disclosure' },
     ],
   },
   {
@@ -37,13 +39,16 @@ const navItems: NavItem[] = [
     children: [
       { label: 'CBSE Curriculum', to: '/cbse-curriculum' },
       { label: 'Results', to: '/results' },
+      { label: 'Transfer Certificate (TC)', to: '/tc' },
     ],
   },
-  { label: 'Event Gallery', to: '/events' },
-  { label: 'Achievers', to: '/achievers' },
-  { label: 'Alumni', to: '/alumni' },
-  { label: 'TC', to: '/tc' },
-  { label: 'Mandatory Disclosure', to: '/mandatory-disclosure' },
+  {
+    label: 'Achievers & Alumni',
+    children: [
+      { label: 'Our Achievers', to: '/achievers' },
+      { label: 'Alumni Network', to: '/alumni' },
+    ],
+  },
   { label: 'Contact Us', to: '/contact-us' },
 ];
 

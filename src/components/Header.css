@@ -34,6 +34,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 110px;
+  transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header--scrolled .header-container,
+.header--inner .header-container {
   height: 80px;
 }
 
@@ -45,11 +51,16 @@
 }
 
 .logo-img {
-  height: 55px;
+  height: 80px;
   width: auto;
   object-fit: contain;
-  /* Drop-shadow looks good on transparent bg too */
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+  transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header--scrolled .logo-img,
+.header--inner .logo-img {
+  height: 55px;
 }
 
 .logo-text {
@@ -59,11 +70,16 @@
 
 .logo-main {
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--primary-color);
   line-height: 1.1;
-  transition: color 0.4s ease;
+  transition: color 0.4s ease, font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header--scrolled .logo-main,
+.header--inner .logo-main {
+  font-size: 1.34rem;
 }
 
 /* White text when transparent */
@@ -73,10 +89,15 @@
 }
 
 .logo-sub {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: var(--text-body);
   letter-spacing: 1px;
-  transition: color 0.4s ease;
+  transition: color 0.4s ease, font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header--scrolled .logo-sub,
+.header--inner .logo-sub {
+  font-size: 0.66rem;
 }
 
 .logo-sub--light {

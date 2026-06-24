@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PageHero from '../components/PageHero';
 import { FileText, Download } from 'lucide-react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import './MandatoryDisclosurePage.css';
 
 const defaultDocuments = [
-  { title: 'Mandatory Public Disclosure', url: 'https://scmchildrenacademy.com/wp-content/uploads/Mandatory-Disclosure.pdf', id: 'disclosure' },
   { title: 'Copy of CBSE Affiliation / Up-Gradation / Recent Extension Letter', url: 'https://scmchildrenacademy.com/wp-content/uploads/Affiliation.pdf', id: 'affiliation' },
   { title: 'Copy of Society / Trust / Company Registration / Renewal', url: 'https://scmchildrenacademy.com/wp-content/uploads/Society-Registration.pdf', id: 'society' },
   { title: 'Copy of No-Objection-Certificate (NOC) by State Government / UT', url: 'https://scmchildrenacademy.com/wp-content/uploads/NOC.pdf', id: 'noc' },
@@ -19,32 +18,29 @@ const defaultDocuments = [
   { title: 'Annual Academic Calendar', url: 'https://scmchildrenacademy.com/wp-content/uploads/School-Calendar.pdf', id: 'calendar' },
   { title: 'School Management Committee (SMC)', url: 'https://scmchildrenacademy.com/wp-content/uploads/smc.pdf', id: 'smc' },
   { title: 'Parent Teacher Association (PTA) of School', url: 'https://scmchildrenacademy.com/wp-content/uploads/PTA.pdf', id: 'pta' },
+  { title: 'CBSE BOARD RESULT OF LAST 3-YEARS', url: '#', id: 'cbse_results_3_years' },
 ];
 
 const MandatoryDisclosurePage: React.FC = () => {
   const [documents, setDocuments] = useState(defaultDocuments);
 
   useEffect(() => {
-    const fetchDynamicDocs = async () => {
-      try {
-        const docRef = doc(db, 'settings', 'mandatory_disclosure');
-        const docSnap = await getDoc(docRef);
-        
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          setDocuments(prev => prev.map(doc => {
-            if (data[doc.id]) {
-              return { ...doc, url: data[doc.id] };
-            }
-            return doc;
-          }));
-        }
-      } catch (error) {
-        console.error("Error fetching mandatory disclosure settings:", error);
+    const docRef = doc(db, 'settings', 'mandatory_disclosure');
+    const unsub = onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setDocuments(prev => prev.map(doc => {
+          if (data[doc.id]) {
+            return { ...doc, url: data[doc.id] };
+          }
+          return doc;
+        }));
       }
-    };
-    
-    fetchDynamicDocs();
+    }, (error) => {
+      console.error("Error fetching mandatory disclosure settings:", error);
+    });
+
+    return () => unsub();
   }, []);
 
   return (
@@ -63,8 +59,14 @@ const MandatoryDisclosurePage: React.FC = () => {
                 className="disclosure-card"
                 key={index}
                 href={doc.url}
-                target="_blank"
+                target={doc.url === '#' ? '_self' : '_blank'}
                 rel="noopener noreferrer"
+                onClick={(e) => {
+                  if (doc.url === '#') {
+                    e.preventDefault();
+                    alert('This document has not been uploaded yet.');
+                  }
+                }}
                 data-animate="fade-up"
                 data-delay={String(Math.min(index + 1, 5))}
               >

@@ -5,7 +5,6 @@ import { db, storage } from '../../../lib/firebase';
 import { FileText, UploadCloud, Loader2, CheckCircle, Trash2 } from 'lucide-react';
 
 const documentOptions = [
-  { id: 'disclosure', title: 'Mandatory Public Disclosure' },
   { id: 'affiliation', title: 'Copy of CBSE Affiliation / Up-Gradation / Recent Extension Letter' },
   { id: 'society', title: 'Copy of Society / Trust / Company Registration / Renewal' },
   { id: 'noc', title: 'Copy of No-Objection-Certificate (NOC) by State Government / UT' },
@@ -19,10 +18,11 @@ const documentOptions = [
   { id: 'smc', title: 'School Management Committee (SMC)' },
   { id: 'pta', title: 'Parent Teacher Association (PTA) of School' },
   { id: 'brochure', title: 'School Brochure' },
+  { id: 'cbse_results_3_years', title: 'CBSE BOARD RESULT OF LAST 3-YEARS' },
 ];
 
 const DisclosureTab: React.FC = () => {
-  const [selectedDocId, setSelectedDocId] = useState('disclosure');
+  const [selectedDocId, setSelectedDocId] = useState('affiliation');
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [docUrls, setDocUrls] = useState<Record<string, string>>({});

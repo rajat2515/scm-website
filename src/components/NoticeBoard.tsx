@@ -14,7 +14,7 @@ const NoticeBoard: React.FC = () => {
   return (
     <section className="notice-board-section">
       <div className="container">
-        <div className="notice-board glass-panel">
+        <div className="notice-board">
           <div className="notice-header">
             <Bell size={20} className="notice-icon" />
             <span className="notice-title">Latest Updates</span>

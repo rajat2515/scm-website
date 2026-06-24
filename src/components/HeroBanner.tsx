@@ -14,8 +14,7 @@ const HeroBanner: React.FC = () => {
       
       <div className="container hero-content">
         <h1 className="hero-title">
-          Next Step to <br />
-          <span className="highlight">Future</span>
+          Next Step to <span className="highlight">Future</span>
         </h1>
       </div>
     </section>

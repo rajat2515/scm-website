@@ -1,7 +1,8 @@
 .quick-portals-section {
-  padding: 2rem 0 4rem 0;
+  padding: 0 0 4rem 0;
+  margin-top: -3rem; /* Overlap with hero image */
   position: relative;
-  z-index: 5;
+  z-index: 10;
 }
 
 .portals-grid {

@@ -1,16 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 import { Bell } from 'lucide-react';
 import './NoticeBoard.css';
 
-const announcements = [
-  "Admissions open for session 2026-27 — Nursery to Class IX. Apply Now!",
-  "S.C.M. Children Academy is CBSE Affiliated (Affiliation No. 2132374). Haldaur, Bijnor.",
-  "Half-Yearly Examinations schedule will be announced shortly. Check the Academic Calendar.",
-  "Parent-Teacher Meeting will be held next month. Date to be announced via circular.",
-  "Students excelling in sports & academics are encouraged to participate in inter-school competitions.",
-];
+interface UpdateItem {
+  id: string;
+  text: string;
+}
 
 const NoticeBoard: React.FC = () => {
+  const [updates, setUpdates] = useState<UpdateItem[]>([]);
+
+  useEffect(() => {
+    // Fetch latest updates from Firestore, ordered by newest first
+    const q = query(collection(db, 'latestUpdates'), orderBy('createdAt', 'desc'));
+    const unsub = onSnapshot(q, (snapshot) => {
+      const data: UpdateItem[] = [];
+      snapshot.forEach((doc) => {
+        data.push({ id: doc.id, text: doc.data().text });
+      });
+      setUpdates(data);
+    });
+    return () => unsub();
+  }, []);
+
+  // If there are no updates in the database, don't render the notice board
+  if (updates.length === 0) {
+    return null;
+  }
+
   return (
     <section className="notice-board-section">
       <div className="container">
@@ -21,17 +40,17 @@ const NoticeBoard: React.FC = () => {
           </div>
           <div className="notice-ticker-wrapper">
             <div className="notice-ticker">
-              {announcements.map((text, index) => (
-                <span key={index} className="notice-item">
+              {updates.map((update) => (
+                <span key={update.id} className="notice-item">
                   <span className="notice-dot"></span>
-                  {text}
+                  {update.text}
                 </span>
               ))}
               {/* Duplicate for seamless scrolling */}
-              {announcements.map((text, index) => (
-                <span key={`dup-${index}`} className="notice-item">
+              {updates.map((update) => (
+                <span key={`dup-${update.id}`} className="notice-item">
                   <span className="notice-dot"></span>
-                  {text}
+                  {update.text}
                 </span>
               ))}
             </div>

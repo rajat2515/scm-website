@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../lib/firebase';
-import { LogOut, FileText, Image as ImageIcon, BarChart3, Bell, FileCheck, Award, GraduationCap } from 'lucide-react';
+import { LogOut, FileText, Image as ImageIcon, BarChart3, Bell, FileCheck, Award, GraduationCap, ListPlus } from 'lucide-react';
 import './AdminDashboard.css';
 
 // Import Tabs
@@ -10,11 +10,12 @@ import DisclosureTab from './tabs/DisclosureTab';
 import EventsTab from './tabs/EventsTab';
 import ResultsTab from './tabs/ResultsTab';
 import AnnouncementsTab from './tabs/AnnouncementsTab';
+import UpdatesTab from './tabs/UpdatesTab';
 import TCTab from './tabs/TCTab';
 import AchieversTab from './tabs/AchieversTab';
 import AlumniTab from './tabs/AlumniTab';
 
-type TabType = 'disclosure' | 'events' | 'results' | 'announcements' | 'tc' | 'achievers' | 'alumni';
+type TabType = 'disclosure' | 'events' | 'results' | 'announcements' | 'updates' | 'tc' | 'achievers' | 'alumni';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('disclosure');
@@ -84,6 +85,12 @@ const AdminDashboard: React.FC = () => {
           >
             <Bell size={18} /> Announcements
           </button>
+          <button 
+            className={`tab-btn ${activeTab === 'updates' ? 'active' : ''}`}
+            onClick={() => setActiveTab('updates')}
+          >
+            <ListPlus size={18} /> Latest Updates
+          </button>
         </div>
 
         {/* Tab Content */}
@@ -95,6 +102,7 @@ const AdminDashboard: React.FC = () => {
           {activeTab === 'alumni' && <AlumniTab />}
           {activeTab === 'results' && <ResultsTab />}
           {activeTab === 'announcements' && <AnnouncementsTab />}
+          {activeTab === 'updates' && <UpdatesTab />}
         </div>
       </main>
     </div>

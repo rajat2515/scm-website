@@ -41,6 +41,7 @@ const navItems: NavItem[] = [
   },
   { label: 'Event Gallery', to: '/events' },
   { label: 'Achievers', to: '/achievers' },
+  { label: 'Alumni', to: '/alumni' },
   { label: 'TC', to: '/tc' },
   { label: 'Mandatory Disclosure', to: '/mandatory-disclosure' },
   { label: 'Contact Us', to: '/contact-us' },

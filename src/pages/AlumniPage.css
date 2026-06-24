@@ -1,0 +1,27 @@
+.alumni-section {
+  background-color: #f8fafc;
+  min-height: 500px;
+}
+
+.alumni-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.alumni-card {
+  background: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.alumni-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(10, 25, 47, 0.08) !important;
+}
+
+@media (max-width: 768px) {
+  .alumni-intro h2 {
+    font-size: 2rem !important;
+  }
+}

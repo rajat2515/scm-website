@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PageHero from '../components/PageHero';
-import { FileCheck, Download, Search } from 'lucide-react';
+import { FileCheck, Download, Search, Loader2 } from 'lucide-react';
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 import './TransferCertificatePage.css';
 
+interface TCData {
+  id: string;
+  year: string;
+  url: string;
+}
+
 const TransferCertificatePage: React.FC = () => {
+  const [tcs, setTcs] = useState<TCData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTCs = async () => {
+      try {
+        const q = query(collection(db, 'tcs'), orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const fetchedTCs: TCData[] = [];
+        querySnapshot.forEach((doc) => {
+          fetchedTCs.push({ id: doc.id, ...doc.data() } as TCData);
+        });
+        setTcs(fetchedTCs);
+      } catch (error) {
+        console.error("Error fetching TCs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchTCs();
+  }, []);
+
   return (
     <>
       <PageHero
@@ -17,28 +48,42 @@ const TransferCertificatePage: React.FC = () => {
           <div className="tc-intro" data-animate="fade-up">
             <Search size={32} className="tc-intro-icon" />
             <h2>Transfer <span className="highlight-text">Certificate Lookup</span></h2>
-            <p>Please check the school-issued Transfer Certificate below. Contact the school office for any queries regarding your TC.</p>
+            <p>Please check the school-issued Transfer Certificates below. Contact the school office for any queries regarding your TC.</p>
           </div>
 
-          <div className="tc-list" data-animate="fade-up" data-delay="1">
-            <div className="tc-card">
-              <div className="tc-card__icon">
-                <FileCheck size={24} />
-              </div>
-              <div className="tc-card__info">
-                <h3>Transfer Certificate</h3>
-                <p>Student TC document</p>
-              </div>
-              <a
-                href="https://scmchildrenacademy.com/wp-content/uploads/0460.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline tc-download-btn"
-              >
-                <Download size={16} /> Download
-              </a>
+          {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem 0' }}>
+              <Loader2 size={40} className="spinning" style={{ color: 'var(--primary-color)' }} />
             </div>
-          </div>
+          ) : tcs.length === 0 ? (
+             <div className="tc-list" data-animate="fade-up" data-delay="1">
+              <div className="tc-card" style={{ display: 'block', textAlign: 'center' }}>
+                <p>No Transfer Certificates have been uploaded yet.</p>
+              </div>
+            </div>
+          ) : (
+            <div className="tc-list" data-animate="fade-up" data-delay="1">
+              {tcs.map(tc => (
+                <div className="tc-card" key={tc.id} style={{ marginBottom: '1rem' }}>
+                  <div className="tc-card__icon">
+                    <FileCheck size={24} />
+                  </div>
+                  <div className="tc-card__info">
+                    <h3>Transfer Certificate</h3>
+                    <p>Academic Year: <strong>{tc.year}</strong></p>
+                  </div>
+                  <a
+                    href={tc.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline tc-download-btn"
+                  >
+                    <Download size={16} /> Download
+                  </a>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="tc-contact" data-animate="fade-up" data-delay="2">
             <h3>Need Your Transfer Certificate?</h3>

@@ -11,6 +11,7 @@ import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
 import NoticeBoard from './components/NoticeBoard';
 import QuickPortals from './components/QuickPortals';
+import AnnouncementModal from './components/AnnouncementModal';
 
 // Pages
 import IntroductionPage from './pages/IntroductionPage';
@@ -25,6 +26,7 @@ import EventGalleryPage from './pages/EventGalleryPage';
 import AchieversPage from './pages/AchieversPage';
 import ResultsPage from './pages/ResultsPage';
 import TransferCertificatePage from './pages/TransferCertificatePage';
+import AlumniPage from './pages/AlumniPage';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -52,6 +54,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <AnnouncementModal />
       <Header />
       <Routes>
         {/* Public Routes */}
@@ -68,6 +71,7 @@ function App() {
         <Route path="/achievers" element={<AchieversPage />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/tc" element={<TransferCertificatePage />} />
+        <Route path="/alumni" element={<AlumniPage />} />
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />

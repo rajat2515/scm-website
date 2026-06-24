@@ -1,0 +1,98 @@
+.notice-board-section {
+  padding: 0 0 2rem 0;
+  margin-top: -3rem; /* Overlap with hero slightly */
+  position: relative;
+  z-index: 10;
+}
+
+.notice-board {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(10, 25, 47, 0.1); /* Navy shadow */
+}
+
+.notice-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: var(--secondary-color);
+  font-weight: 700;
+  white-space: nowrap;
+  border: 1px solid rgba(230, 57, 70, 0.3); /* Red border */
+  box-shadow: 0 0 10px rgba(230, 57, 70, 0.2); /* Red shadow */
+  z-index: 2;
+}
+
+.notice-icon {
+  animation: ring 2s ease infinite;
+}
+
+@keyframes ring {
+  0%, 100% { transform: rotate(0); }
+  10%, 30%, 50% { transform: rotate(10deg); }
+  20%, 40%, 60% { transform: rotate(-10deg); }
+  70% { transform: rotate(0); }
+}
+
+.notice-ticker-wrapper {
+  flex: 1;
+  overflow: hidden;
+  padding-left: 1rem;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.notice-ticker {
+  display: flex;
+  white-space: nowrap;
+  animation: tickerScroll 25s linear infinite;
+}
+
+.notice-ticker:hover {
+  animation-play-state: paused;
+}
+
+.notice-item {
+  color: var(--text-dark);
+  font-weight: 600;
+  padding-right: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notice-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(230, 57, 70, 0.5);
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .notice-board {
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 12px;
+  }
+  .notice-header {
+    justify-content: center;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .notice-ticker-wrapper {
+    padding: 0.75rem 0;
+  }
+}

@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import PageHero from '../components/PageHero';
-import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa';
 import './ContactPage.css';
 
+type Status = 'idle' | 'sending' | 'success' | 'error';
+
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  const [status, setStatus] = useState<Status>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -13,8 +17,28 @@ const ContactPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO(security): Implement server-side form processing with CSRF protection
-    // Currently client-side only — no data is sent anywhere
+    setStatus('sending');
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          to_name: 'SCM Children Academy',
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(() => {
+        setStatus('success');
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      })
+      .catch(() => {
+        setStatus('error');
+      });
   };
 
   return (
@@ -78,9 +102,30 @@ const ContactPage: React.FC = () => {
                   <label htmlFor="contact-message">Message</label>
                   <textarea id="contact-message" name="message" value={formData.message} onChange={handleChange} required rows={5} placeholder="How can we help you?" />
                 </div>
-                <button type="submit" className="btn btn-primary contact-submit">
-                  <Send size={18} /> Send Message
+                <button
+                  type="submit"
+                  className="btn btn-primary contact-submit"
+                  disabled={status === 'sending'}
+                >
+                  {status === 'sending' ? (
+                    <>⏳ Sending...</>
+                  ) : (
+                    <><Send size={18} /> Send Message</>
+                  )}
                 </button>
+
+                {status === 'success' && (
+                  <div className="form-feedback form-feedback--success">
+                    <CheckCircle size={18} />
+                    Message sent successfully! We'll get back to you shortly.
+                  </div>
+                )}
+                {status === 'error' && (
+                  <div className="form-feedback form-feedback--error">
+                    <AlertCircle size={18} />
+                    Something went wrong. Please try calling us directly.
+                  </div>
+                )}
               </form>
             </div>
           </div>

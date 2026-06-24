@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import './LearningSpaces.css';
 
 const spaces = [
-  { name: 'DWELL', desc: 'Where students grow, learn, and thrive every day', img: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop' },
-  { name: 'EXPRESS', desc: 'Unleashing creativity through Art, Dance, Music', img: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=800&auto=format&fit=crop' },
-  { name: 'GROW', desc: 'Plenty of opportunities to engage in a diverse range', img: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop' },
-  { name: 'ACHIEVE', desc: 'Prioritizing wellness and comprehensive services', img: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop' },
+  { name: 'LEARN', desc: 'A structured CBSE curriculum from Nursery to Class X that builds strong academic foundations.', img: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop' },
+  { name: 'CREATE', desc: 'Unleashing creativity through Art, Craft, Music, and Cultural programmes.', img: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=800&auto=format&fit=crop' },
+  { name: 'GROW', desc: 'Sports and physical education build discipline, teamwork, and a healthy lifestyle.', img: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop' },
+  { name: 'EXCEL', desc: 'Dedicated preparation and mentoring for CBSE Board exams and beyond.', img: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop' },
 ];
 
 const LearningSpaces: React.FC = () => {

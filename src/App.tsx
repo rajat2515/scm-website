@@ -9,6 +9,8 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
+import NoticeBoard from './components/NoticeBoard';
+import QuickPortals from './components/QuickPortals';
 
 // Pages
 import IntroductionPage from './pages/IntroductionPage';
@@ -24,10 +26,17 @@ import AchieversPage from './pages/AchieversPage';
 import ResultsPage from './pages/ResultsPage';
 import TransferCertificatePage from './pages/TransferCertificatePage';
 
+// Admin Pages
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
+
 function HomePage() {
   return (
     <>
       <HeroBanner />
+      <NoticeBoard />
+      <QuickPortals />
       <AboutSection />
       <AcademicsSection />
       <LearningSpaces />
@@ -45,6 +54,7 @@ function App() {
       <ScrollToTop />
       <Header />
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/introduction" element={<IntroductionPage />} />
         <Route path="/managements-desk" element={<ManagementDeskPage />} />
@@ -58,6 +68,17 @@ function App() {
         <Route path="/achievers" element={<AchieversPage />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/tc" element={<TransferCertificatePage />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route 
+          path="/admin/dashboard" 
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
       <Footer />
     </>

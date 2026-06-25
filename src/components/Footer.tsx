@@ -90,7 +90,7 @@ const Footer: React.FC = () => {
               <div className="contact-info">
                 <p><Phone size={16} /> <strong>Reception:</strong> 01342 - 297 277</p>
                 <p><Phone size={16} /> <strong>Admissions:</strong> 9319787083</p>
-                <p><Mail size={16} /> <strong>Email:</strong> admissions@scmchildrensacademy.in</p>
+                <p><Mail size={16} /> <strong>Email:</strong> scmchildrenacademy@gmail.com</p>
               </div>
               <div className="address-info mt-3">
                 <MapPin size={16} className="address-icon" />

@@ -24,7 +24,6 @@ const navItems: NavItem[] = [
       { label: "Management's Desk", to: '/managements-desk' },
       { label: 'Facilities', to: '/facilities' },
       { label: 'Event Gallery', to: '/events' },
-      { label: 'Mandatory Disclosure', to: '/mandatory-disclosure' },
     ],
   },
   {
@@ -49,6 +48,7 @@ const navItems: NavItem[] = [
       { label: 'Alumni Network', to: '/alumni' },
     ],
   },
+  { label: 'Mandatory Disclosure', to: '/mandatory-disclosure' },
   { label: 'Contact Us', to: '/contact-us' },
 ];
 

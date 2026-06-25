@@ -14,7 +14,7 @@ interface TCData {
 const TCTab: React.FC = () => {
   const [tcs, setTcs] = useState<TCData[]>([]);
   const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [, setProgress] = useState(0);
   const [error, setError] = useState('');
   
   // Form State

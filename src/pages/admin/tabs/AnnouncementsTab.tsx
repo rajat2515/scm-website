@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc, onSnapshot, deleteDoc, doc, serverTimestamp, query, orderBy, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from '../../../lib/firebase';
-import { UploadCloud, Loader2, Trash2, Bell, CheckCircle } from 'lucide-react';
+import { Loader2, Trash2, Bell, CheckCircle } from 'lucide-react';
 
 interface AnnouncementData {
   id: string;
@@ -16,7 +16,7 @@ interface AnnouncementData {
 const AnnouncementsTab: React.FC = () => {
   const [announcements, setAnnouncements] = useState<AnnouncementData[]>([]);
   const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [, setProgress] = useState(0);
   const [error, setError] = useState('');
   
   // Form State

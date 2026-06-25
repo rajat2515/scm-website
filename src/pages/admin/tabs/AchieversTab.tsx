@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc, onSnapshot, deleteDoc, doc, serverTimestamp, query, orderBy } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from '../../../lib/firebase';
-import { Image as ImageIcon, UploadCloud, Loader2, Trash2, Award } from 'lucide-react';
+import { Loader2, Trash2, Award } from 'lucide-react';
 
 interface AchieverData {
   id: string;
@@ -15,7 +15,7 @@ interface AchieverData {
 const AchieversTab: React.FC = () => {
   const [achievers, setAchievers] = useState<AchieverData[]>([]);
   const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [, setProgress] = useState(0);
   const [error, setError] = useState('');
   
   // Form State

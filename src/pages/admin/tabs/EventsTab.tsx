@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc, onSnapshot, deleteDoc, doc, serverTimestamp, query, orderBy } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from '../../../lib/firebase';
-import { Image as ImageIcon, UploadCloud, Loader2, Trash2 } from 'lucide-react';
+import { UploadCloud, Loader2, Trash2 } from 'lucide-react';
 
 interface EventData {
   id: string;
@@ -11,12 +11,13 @@ interface EventData {
   date: string;
   imageUrl: string;
   imagePath: string;
+  createdAt: any;
 }
 
 const EventsTab: React.FC = () => {
   const [events, setEvents] = useState<EventData[]>([]);
   const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [, setProgress] = useState(0);
   const [error, setError] = useState('');
   
   // Form State

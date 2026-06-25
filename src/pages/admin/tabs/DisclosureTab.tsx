@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { doc, setDoc, onSnapshot, updateDoc, deleteField } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../../../lib/firebase';
-import { FileText, UploadCloud, Loader2, CheckCircle, Trash2 } from 'lucide-react';
+import { UploadCloud, Loader2, CheckCircle, Trash2 } from 'lucide-react';
 
 const documentOptions = [
   { id: 'affiliation', title: 'Copy of CBSE Affiliation / Up-Gradation / Recent Extension Letter' },

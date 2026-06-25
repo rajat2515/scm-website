@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PageHero from '../components/PageHero';
 import { FileText, Download } from 'lucide-react';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import './MandatoryDisclosurePage.css';
 

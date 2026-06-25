@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc, onSnapshot, deleteDoc, doc, serverTimestamp, query, orderBy } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from '../../../lib/firebase';
-import { UploadCloud, Loader2, Trash2, GraduationCap } from 'lucide-react';
+import { Loader2, Trash2, GraduationCap } from 'lucide-react';
 
 interface AlumniData {
   id: string;
@@ -17,7 +17,7 @@ interface AlumniData {
 const AlumniTab: React.FC = () => {
   const [alumni, setAlumni] = useState<AlumniData[]>([]);
   const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [, setProgress] = useState(0);
   const [error, setError] = useState('');
   
   // Form State

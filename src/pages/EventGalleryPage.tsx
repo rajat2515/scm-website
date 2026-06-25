@@ -10,12 +10,18 @@ interface EventData {
   title: string;
   category: string;
   date: string;
-  imageUrl: string;
+  imageUrl?: string;
+  images?: { url: string; path: string; }[];
 }
 
 const EventGalleryPage: React.FC = () => {
   const [events, setEvents] = useState<EventData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
+
+  const categories = ['All', ...Array.from(new Set(events.map(e => e.category))).filter(Boolean)];
+  const filteredEvents = selectedCategory === 'All' ? events : events.filter(e => e.category === selectedCategory);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -53,25 +59,50 @@ const EventGalleryPage: React.FC = () => {
             <p>From annual celebrations to academic exhibitions, our students participate in a wide range of events that foster creativity, teamwork, and leadership.</p>
           </div>
 
+          {!loading && events.length > 0 && (
+            <div className="gallery-filters" data-animate="fade-up">
+              {categories.map(cat => (
+                <button 
+                  key={cat} 
+                  className={`filter-btn ${selectedCategory === cat ? 'active' : ''}`}
+                  onClick={() => setSelectedCategory(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
+
           {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem 0' }}>
               <Loader2 size={40} className="spinning" style={{ color: 'var(--primary-color)' }} />
             </div>
-          ) : events.length === 0 ? (
+          ) : filteredEvents.length === 0 ? (
             <div className="events-note" data-animate="fade-up" style={{ textAlign: 'center', marginTop: '2rem' }}>
-              <p>No events have been uploaded yet. Please check back later!</p>
+              <p>No events found for this category.</p>
             </div>
           ) : (
             <div className="events-grid">
-              {events.map((event, index) => (
+              {filteredEvents.map((event, index) => (
                 <div
                   className="event-card"
                   key={event.id}
                   data-animate="fade-up"
                   data-delay={String(Math.min(index + 1, 5))}
+                  onClick={() => setSelectedEvent(event)}
+                  style={{ cursor: 'pointer' }}
                 >
                   <div className="event-card__image">
-                    {event.imageUrl ? (
+                    {event.images && event.images.length > 0 ? (
+                      <>
+                        <img src={event.images[0].url} alt={event.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        {event.images.length > 1 && (
+                          <div className="event-card__image-count">
+                            +{event.images.length - 1} photos
+                          </div>
+                        )}
+                      </>
+                    ) : event.imageUrl ? (
                       <img src={event.imageUrl} alt={event.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     ) : (
                       <div className="event-card__placeholder">
@@ -94,6 +125,29 @@ const EventGalleryPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {selectedEvent && (
+        <div className="gallery-modal" onClick={() => setSelectedEvent(null)}>
+          <div className="gallery-modal-content" onClick={e => e.stopPropagation()}>
+            <button className="gallery-modal-close" onClick={() => setSelectedEvent(null)}>×</button>
+            <div className="gallery-modal-header">
+              <h3>{selectedEvent.title}</h3>
+              <span>{selectedEvent.date}</span>
+            </div>
+            <div className="gallery-modal-images">
+              {selectedEvent.images && selectedEvent.images.length > 0 ? (
+                selectedEvent.images.map((img, idx) => (
+                  <img key={idx} src={img.url} alt={`${selectedEvent.title} - ${idx + 1}`} />
+                ))
+              ) : selectedEvent.imageUrl ? (
+                <img src={selectedEvent.imageUrl} alt={selectedEvent.title} />
+              ) : (
+                <div style={{ padding: '2rem', textAlign: 'center' }}>No images available</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

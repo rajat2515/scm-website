@@ -15,6 +15,7 @@ interface AchieverData {
 const AchieversPage: React.FC = () => {
   const [achievers, setAchievers] = useState<AchieverData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAchievers = async () => {
@@ -76,7 +77,14 @@ const AchieversPage: React.FC = () => {
           ) : (
             <div className="achievers-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
               {achievers.map((ach, idx) => (
-                <div className="achiever-card glass-panel" key={ach.id} data-animate="fade-up" data-delay={String(Math.min(idx + 1, 5))} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '2.5rem 1.5rem' }}>
+                <div 
+                  className="achiever-card glass-panel" 
+                  key={ach.id} 
+                  data-animate="fade-up" 
+                  data-delay={String(Math.min(idx + 1, 5))} 
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '2.5rem 1.5rem', cursor: 'pointer' }}
+                  onClick={() => { if (ach.imageUrl) setSelectedImage(ach.imageUrl) }}
+                >
                   <div className="achiever-photo-wrap" style={{ width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden', border: '4px solid var(--secondary-color)', marginBottom: '1.5rem', boxShadow: '0 10px 25px rgba(230, 57, 70, 0.2)' }}>
                     <img src={ach.imageUrl} alt={ach.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
@@ -89,6 +97,26 @@ const AchieversPage: React.FC = () => {
           )}
         </div>
       </section>
+
+      {selectedImage && (
+        <div 
+          style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '2rem' }}
+          onClick={() => setSelectedImage(null)}
+        >
+          <img 
+            src={selectedImage} 
+            alt="Full view" 
+            style={{ maxWidth: '100%', maxHeight: '90vh', objectFit: 'contain', borderRadius: '8px', boxShadow: '0 10px 40px rgba(0,0,0,0.5)' }} 
+            onClick={e => e.stopPropagation()} 
+          />
+          <button 
+            style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(255,255,255,0.2)', color: '#fff', border: 'none', borderRadius: '50%', width: '40px', height: '40px', fontSize: '1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            onClick={() => setSelectedImage(null)}
+          >
+            ×
+          </button>
+        </div>
+      )}
     </>
   );
 };

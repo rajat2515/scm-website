@@ -17,6 +17,7 @@ interface AlumniData {
 const AlumniPage: React.FC = () => {
   const [alumni, setAlumni] = useState<AlumniData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAlumni = async () => {
@@ -69,7 +70,14 @@ const AlumniPage: React.FC = () => {
           ) : (
             <div className="alumni-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
               {alumni.map((al, idx) => (
-                <div className="alumni-card glass-panel" key={al.id} data-animate="fade-up" data-delay={String(Math.min(idx + 1, 5))} style={{ padding: '2rem', display: 'flex', flexDirection: 'column', height: '100%', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 10px 30px rgba(10, 25, 47, 0.04)' }}>
+                <div 
+                  className="alumni-card glass-panel" 
+                  key={al.id} 
+                  data-animate="fade-up" 
+                  data-delay={String(Math.min(idx + 1, 5))} 
+                  style={{ padding: '2rem', display: 'flex', flexDirection: 'column', height: '100%', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 10px 30px rgba(10, 25, 47, 0.04)', cursor: 'pointer' }}
+                  onClick={() => { if (al.imageUrl) setSelectedImage(al.imageUrl) }}
+                >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '1.5rem' }}>
                     <div style={{ width: '80px', height: '80px', borderRadius: '12px', overflow: 'hidden', flexShrink: 0, boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
                       <img src={al.imageUrl} alt={al.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -90,6 +98,26 @@ const AlumniPage: React.FC = () => {
           )}
         </div>
       </section>
+
+      {selectedImage && (
+        <div 
+          style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '2rem' }}
+          onClick={() => setSelectedImage(null)}
+        >
+          <img 
+            src={selectedImage} 
+            alt="Full view" 
+            style={{ maxWidth: '100%', maxHeight: '90vh', objectFit: 'contain', borderRadius: '8px', boxShadow: '0 10px 40px rgba(0,0,0,0.5)' }} 
+            onClick={e => e.stopPropagation()} 
+          />
+          <button 
+            style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(255,255,255,0.2)', color: '#fff', border: 'none', borderRadius: '50%', width: '40px', height: '40px', fontSize: '1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            onClick={() => setSelectedImage(null)}
+          >
+            ×
+          </button>
+        </div>
+      )}
     </>
   );
 };

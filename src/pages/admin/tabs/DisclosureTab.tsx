@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { doc, setDoc, onSnapshot, updateDoc, deleteField } from 'firebase/firestore';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from '../../../lib/firebase';
 import { UploadCloud, Loader2, CheckCircle, Trash2 } from 'lucide-react';
 
@@ -53,6 +53,8 @@ const DisclosureTab: React.FC = () => {
     const storageRef = ref(storage, `documents/${selectedDocId}_${Date.now()}.pdf`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
+    const currentUrl = docUrls[selectedDocId];
+
     uploadTask.on(
       'state_changed',
       (snapshot) => {
@@ -64,6 +66,15 @@ const DisclosureTab: React.FC = () => {
       },
       async () => {
         try {
+          // Delete old file from storage if it exists
+          if (currentUrl) {
+            try {
+              await deleteObject(ref(storage, currentUrl));
+            } catch (err) {
+              console.error("Error deleting old document from storage:", err);
+            }
+          }
+
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
           await setDoc(doc(db, 'settings', 'mandatory_disclosure'), {
             [selectedDocId]: downloadURL,
@@ -83,6 +94,15 @@ const DisclosureTab: React.FC = () => {
   const handleDelete = async () => {
     if (!window.confirm('Are you sure you want to remove the custom PDF for this document? It will revert to the default link.')) return;
     try {
+      const currentUrl = docUrls[selectedDocId];
+      if (currentUrl) {
+        try {
+          await deleteObject(ref(storage, currentUrl));
+        } catch (err) {
+          console.error("Error deleting document from storage:", err);
+        }
+      }
+
       await updateDoc(doc(db, 'settings', 'mandatory_disclosure'), {
         [selectedDocId]: deleteField()
       });

@@ -15,6 +15,7 @@ interface ResultData {
 const ResultsPage: React.FC = () => {
   const [results, setResults] = useState<ResultData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -75,7 +76,8 @@ const ResultsPage: React.FC = () => {
                   key={result.id}
                   data-animate="fade-up"
                   data-delay={String(Math.min(index + 1, 5))}
-                  style={{ background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}
+                  style={{ background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', cursor: 'pointer' }}
+                  onClick={() => { if (result.imageUrl) setSelectedImage(result.imageUrl) }}
                 >
                   <div style={{ height: '200px', overflow: 'hidden', position: 'relative' }}>
                     {result.imageUrl ? (
@@ -98,6 +100,26 @@ const ResultsPage: React.FC = () => {
           )}
         </div>
       </section>
+
+      {selectedImage && (
+        <div 
+          style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '2rem' }}
+          onClick={() => setSelectedImage(null)}
+        >
+          <img 
+            src={selectedImage} 
+            alt="Full view" 
+            style={{ maxWidth: '100%', maxHeight: '90vh', objectFit: 'contain', borderRadius: '8px', boxShadow: '0 10px 40px rgba(0,0,0,0.5)' }} 
+            onClick={e => e.stopPropagation()} 
+          />
+          <button 
+            style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(255,255,255,0.2)', color: '#fff', border: 'none', borderRadius: '50%', width: '40px', height: '40px', fontSize: '1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            onClick={() => setSelectedImage(null)}
+          >
+            ×
+          </button>
+        </div>
+      )}
     </>
   );
 };

@@ -9,8 +9,9 @@ interface EventData {
   title: string;
   category: string;
   date: string;
-  imageUrl: string;
-  imagePath: string;
+  imageUrl?: string;
+  imagePath?: string;
+  images?: { url: string; path: string; }[];
   createdAt: any;
 }
 
@@ -24,7 +25,7 @@ const EventsTab: React.FC = () => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<FileList | null>(null);
 
   useEffect(() => {
     const q = query(collection(db, 'events'), orderBy('createdAt', 'desc'));
@@ -40,51 +41,56 @@ const EventsTab: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !category || !date || !file) {
-      setError('Please fill all fields and select an image.');
+    if (!title || !category || !date || !files || files.length === 0) {
+      setError('Please fill all fields and select at least one image.');
       return;
     }
     setError('');
     setUploading(true);
     setProgress(0);
 
-    const imagePath = `events/${Date.now()}_${file.name}`;
-    const storageRef = ref(storage, imagePath);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    try {
+      const uploadPromises = Array.from(files).map((file) => {
+        return new Promise<{url: string, path: string}>((resolve, reject) => {
+          const imagePath = `events/${Date.now()}_${file.name}`;
+          const storageRef = ref(storage, imagePath);
+          const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100),
-      (err) => {
-        setError('Upload failed: ' + err.message);
-        setUploading(false);
-      },
-      async () => {
-        try {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          await addDoc(collection(db, 'events'), {
-            title,
-            category,
-            date,
-            imageUrl: downloadURL,
-            imagePath,
-            createdAt: serverTimestamp(),
-          });
-          setTitle('');
-          setCategory('');
-          setDate('');
-          setFile(null);
-          // reset file input manually
-          const fileInput = document.getElementById('event-img-upload') as HTMLInputElement;
-          if (fileInput) fileInput.value = '';
-        } catch (err: any) {
-          setError('Failed to save event: ' + err.message);
-        } finally {
-          setUploading(false);
-          setProgress(0);
-        }
-      }
-    );
+          uploadTask.on(
+            'state_changed',
+            () => {}, // Simplified progress for multiple files
+            (err) => reject(err),
+            async () => {
+              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+              resolve({ url: downloadURL, path: imagePath });
+            }
+          );
+        });
+      });
+
+      const uploadedImages = await Promise.all(uploadPromises);
+
+      await addDoc(collection(db, 'events'), {
+        title,
+        category,
+        date,
+        images: uploadedImages,
+        createdAt: serverTimestamp(),
+      });
+
+      setTitle('');
+      setCategory('');
+      setDate('');
+      setFiles(null);
+      // reset file input manually
+      const fileInput = document.getElementById('event-img-upload') as HTMLInputElement;
+      if (fileInput) fileInput.value = '';
+    } catch (err: any) {
+      setError('Failed to save event: ' + err.message);
+    } finally {
+      setUploading(false);
+      setProgress(0);
+    }
   };
 
   const handleDelete = async (eventData: EventData) => {
@@ -92,6 +98,12 @@ const EventsTab: React.FC = () => {
     try {
       if (eventData.imagePath) {
         await deleteObject(ref(storage, eventData.imagePath)).catch(console.error);
+      }
+      if (eventData.images && eventData.images.length > 0) {
+        const deletePromises = eventData.images.map(img => 
+          deleteObject(ref(storage, img.path)).catch(console.error)
+        );
+        await Promise.all(deletePromises);
       }
       await deleteDoc(doc(db, 'events', eventData.id));
     } catch (err: any) {
@@ -121,8 +133,8 @@ const EventsTab: React.FC = () => {
             <input type="text" value={date} onChange={(e) => setDate(e.target.value)} placeholder="e.g. 2025 or Oct 12, 2025" className="form-input" style={{ width: '100%', padding: '0.5rem' }}/>
           </div>
           <div>
-            <label>Event Image</label>
-            <input type="file" id="event-img-upload" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] || null)} style={{ width: '100%', padding: '0.5rem' }}/>
+            <label>Event Images</label>
+            <input type="file" id="event-img-upload" accept="image/*" multiple onChange={(e) => setFiles(e.target.files)} style={{ width: '100%', padding: '0.5rem' }}/>
           </div>
         </div>
 
@@ -135,8 +147,13 @@ const EventsTab: React.FC = () => {
       <div className="file-grid">
         {events.map((ev) => (
           <div key={ev.id} className="file-card">
-            <div className="file-card-preview">
-              <img src={ev.imageUrl} alt={ev.title} />
+            <div className="file-card-preview" style={{ position: 'relative' }}>
+              <img src={ev.images?.[0]?.url || ev.imageUrl} alt={ev.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              {ev.images && ev.images.length > 1 && (
+                <div style={{ position: 'absolute', bottom: '8px', right: '8px', background: 'rgba(0,0,0,0.7)', color: '#fff', padding: '2px 8px', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 'bold' }}>
+                  +{ev.images.length - 1}
+                </div>
+              )}
             </div>
             <div className="file-card-info">
               <h4 title={ev.title}>{ev.title}</h4>

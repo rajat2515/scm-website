@@ -38,7 +38,7 @@ const AboutSection: React.FC = () => {
               <p>Affiliated Board</p>
             </div>
             <div className="stat-box" data-animate="scale-in" data-delay="4">
-              <h4>Nsy – X</h4>
+              <h4>Nur – X</h4>
               <p>Grade Range</p>
             </div>
           </div>
@@ -46,8 +46,8 @@ const AboutSection: React.FC = () => {
           <div className="vision-box" data-animate="fade-up" data-delay="3">
             <h6>OUR VISION</h6>
             <p>
-              To provide every child with firm, broad foundations of knowledge and character — 
-              fostering a love of learning, a desire for excellence, and the intellectual 
+              To provide every child with firm, broad foundations of knowledge and character —
+              fostering a love of learning, a desire for excellence, and the intellectual
               skills needed to meet the challenges of tomorrow's world.
             </p>
           </div>

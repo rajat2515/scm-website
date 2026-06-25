@@ -6,7 +6,7 @@ const HeroBanner: React.FC = () => {
     <section className="hero-banner">
       <div className="hero-background">
         <img 
-          src="/school-campus.jpg" 
+          src="/school-campus.png" 
           alt="School Campus" 
         />
         <div className="hero-overlay"></div>

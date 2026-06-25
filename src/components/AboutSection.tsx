@@ -8,7 +8,7 @@ const AboutSection: React.FC = () => {
       <div className="container about-grid">
         <div className="about-left">
           <div className="about-image" data-animate="fade-up">
-            <img src="/school-campus.jpg" alt="SCM Children Academy Campus" />
+            <img src="/school-campus.png" alt="SCM Children Academy Campus" />
           </div>
           <div className="about-caption" data-animate="fade-up" data-delay="2">
             <h6>ABOUT US</h6>

@@ -89,18 +89,17 @@ body {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  background: transparent;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg-light);
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #EAB308; /* Golden Logo Color */
+  background-color: var(--primary-color); 
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #D97706; /* Darker Gold for hover */
+  background-color: var(--secondary-color);
 }
 
 /* Global Fixed Bottom Accent Border */

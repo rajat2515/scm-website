@@ -53,9 +53,6 @@ const AboutSection: React.FC = () => {
           </div>
 
           <div className="founder-box" data-animate="fade-up" data-delay="4">
-            <div className="founder-img">
-              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop" alt="Management" />
-            </div>
             <div className="founder-caption">
               <h6>MANAGEMENT MESSAGE</h6>
               <Link to="/managements-desk" className="founder-video-link">

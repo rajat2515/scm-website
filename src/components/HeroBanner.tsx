@@ -48,6 +48,9 @@ const HeroBanner: React.FC = () => {
             Next Step to <br />
             <span className="highlight">Future</span>
           </h1>
+          <h2 className="hero-seo-subtitle">
+            S.C.M. Children Academy — Top CBSE School in Haldaur, Bijnor
+          </h2>
         </div>
       </div>
     </section>

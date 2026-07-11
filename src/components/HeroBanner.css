@@ -80,6 +80,15 @@
   font-weight: 800;
 }
 
+.hero-seo-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  letter-spacing: 0.5px;
+  animation: fadeUp 1s ease-out 0.4s backwards;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;

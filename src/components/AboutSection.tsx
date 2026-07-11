@@ -14,10 +14,10 @@ const AboutSection: React.FC = () => {
             <h6>ABOUT US</h6>
             <h2>Founded in Memory of Late Shree Chandra Sen</h2>
             <p>
-              Established in July 2012 at Nehtaur Tiraha, Haldaur, Bijnor, S.C.M. Children Academy
-              was founded by the Shree Chandra Sen Family with a vision to provide world-class,
-              CBSE-affiliated education to the community. We groom students from Nursery to Class X
-              to become confident, value-driven leaders of tomorrow.
+              Recognized as a top CBSE school in Haldaur, Bijnor, S.C.M. Children Academy
+              was founded in July 2012 by the Shree Chandra Sen Family. Situated at Nehtaur Tiraha, 
+              our vision is to provide world-class education to the local community. We groom students 
+              from Nursery to Class X to become confident, value-driven leaders of tomorrow.
             </p>
             <Link to="/introduction" className="btn btn-primary">Discover More</Link>
           </div>

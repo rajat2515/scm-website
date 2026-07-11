@@ -18,6 +18,7 @@ const IntroductionPage: React.FC = () => {
             <div className="intro-story" data-animate="fade-up">
               <span className="intro-label">OUR STORY</span>
               <h2>Founded in the Memory of <span className="highlight-text">Late Shree Chandra Sen</span></h2>
+              <img src="/shree-chandra-sen.jpg" alt="Late Shree Chandra Sen" className="intro-founder-image" />
               <p>
                 In July 2012, SCM Children Academy was founded in the memory of Late Shree Chandra Sen 
                 by the Shree Chandra Sen Family. Situated at Nehtaur Tiraha Dhampur–Bijnor Road, 

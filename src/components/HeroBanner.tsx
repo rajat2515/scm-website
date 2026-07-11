@@ -35,6 +35,7 @@ const HeroBanner: React.FC = () => {
             src={src} 
             alt={`School Campus ${index + 1}`} 
             className={`hero-image-slide ${index === currentImageIndex ? 'active' : ''}`}
+            loading={index === 0 ? 'eager' : 'lazy'}
           />
         ))}
         <div className="hero-overlay"></div>

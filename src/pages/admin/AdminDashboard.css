@@ -2,6 +2,7 @@
 .admin-dashboard {
   min-height: 100vh;
   background: var(--bg-gray);
+  padding-top: 110px;
   padding-bottom: 4rem;
 }
 
@@ -10,7 +11,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   padding: 1rem 0;
   position: sticky;
-  top: 0;
+  top: 80px;
   z-index: 100;
 }
 

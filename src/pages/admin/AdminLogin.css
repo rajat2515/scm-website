@@ -5,6 +5,7 @@
   justify-content: center;
   background: linear-gradient(135deg, var(--bg-gray) 0%, rgba(10, 25, 47, 0.05) 100%);
   padding: 2rem;
+  padding-top: 130px;
 }
 
 .admin-login-card {
